@@ -13,6 +13,5 @@ ENV PORT=8756
 EXPOSE 8756
 
 # Persistent storage for config.json + data.db (mount this volume).
-VOLUME ["/app/data"]
 
 CMD ["python", "server.py"]
