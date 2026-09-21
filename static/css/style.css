@@ -1,0 +1,770 @@
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-2: #475569;
+  --text-3: #94a3b8;
+  --brand: #0d9488;
+  --brand-dark: #0f766e;
+  --brand-soft: #ccfbf1;
+  --accent: #2563eb;
+  --accent-soft: #dbeafe;
+  --amber: #d97706;
+  --amber-soft: #fef3c7;
+  --red: #dc2626;
+  --red-soft: #fee2e2;
+  --green: #16a34a;
+  --green-soft: #dcfce7;
+  --shadow: 0 1px 3px rgba(15, 23, 42, .08), 0 4px 16px rgba(15, 23, 42, .06);
+  --radius: 14px;
+  --radius-sm: 9px;
+  --sidebar-w: 250px;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app { display: flex; min-height: 100vh; }
+
+/* ---------- Sidebar ---------- */
+#sidebar {
+  width: var(--sidebar-w);
+  background: #0b1220;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; bottom: 0; left: 0;
+  padding: 20px 14px;
+}
+.brand { display: flex; gap: 11px; align-items: center; padding: 4px 8px 20px; }
+.brand-mark { font-size: 26px; }
+.brand-title { font-weight: 700; color: #fff; font-size: 16px; letter-spacing: .2px; }
+.brand-sub { font-size: 11px; color: #64748b; }
+
+#nav { display: flex; flex-direction: column; gap: 4px; }
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  width: 100%; padding: 11px 12px; border: 0; border-radius: 10px;
+  background: transparent; color: #cbd5e1; font-size: 14.5px; cursor: pointer;
+  text-align: left; transition: background .15s, color .15s;
+}
+.nav-item:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-item.active { background: var(--brand); color: #fff; }
+.nav-ico { font-size: 16px; width: 20px; text-align: center; }
+.badge {
+  margin-left: auto; background: var(--brand); color: #fff;
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px;
+}
+.badge-red { background: var(--red); }
+.sidebar-footer { margin-top: auto; padding: 12px 8px 0; }
+.ai-status { font-size: 12px; color: #64748b; padding: 9px 11px; background: rgba(255,255,255,.04); border-radius: 9px; }
+/* Trial-mode notice: browsing is open, AI is not. */
+.trial-banner { margin-top: 12px; padding: 10px 12px; border-radius: 10px; font-size: 12px; line-height: 1.5;
+  color: var(--amber); background: var(--amber-soft); border: 1px solid rgba(217, 119, 6, .35); }
+.trial-banner span { color: var(--text-2); }
+/* Same slot for a password-less local instance — informational, not a warning. */
+.trial-banner.open-banner { color: var(--accent); background: rgba(37, 99, 235, .10);
+  border-color: rgba(37, 99, 235, .30); }
+
+/* ---------- Main ---------- */
+#main { flex: 1; margin-left: var(--sidebar-w); min-height: 100vh; }
+.view { max-width: 1060px; margin: 0 auto; padding: 30px 34px 60px; }
+
+h1 { font-size: 24px; margin: 0 0 6px; }
+h2 { font-size: 19px; margin: 0 0 14px; }
+h3 { font-size: 16px; margin: 0 0 10px; }
+.muted { color: var(--text-2); }
+.sub { color: var(--text-3); font-size: 13px; }
+a { color: var(--accent); }
+
+.page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+.page-head .title-wrap h1 { margin-bottom: 4px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  padding: 9px 15px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .15s; text-decoration: none;
+}
+.btn:hover { border-color: #cbd5e1; box-shadow: var(--shadow); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn-primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+.btn-accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-accent:hover { filter: brightness(1.06); }
+.btn-danger { background: var(--red); border-color: var(--red); color: #fff; }
+.btn-ghost { background: transparent; }
+.btn-sm { padding: 6px 11px; font-size: 13px; border-radius: 8px; }
+.btn-lg { padding: 13px 22px; font-size: 15px; border-radius: 12px; }
+
+/* ---------- Cards & grids ---------- */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px;
+}
+.grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-2 { grid-template-columns: 1fr; } }
+
+.stat { text-align: left; }
+.stat .stat-num { font-size: 30px; font-weight: 800; color: var(--text); }
+.stat .stat-label { font-size: 13px; color: var(--text-3); }
+
+/* ---------- Lesson list ---------- */
+.lesson-item {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 18px; box-shadow: var(--shadow); cursor: pointer; transition: all .15s;
+}
+.lesson-item:hover { border-color: var(--brand); transform: translateY(-1px); }
+.lesson-ico { font-size: 26px; }
+.lesson-meta { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+
+.pill { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+.pill-brand { background: var(--brand-soft); color: var(--brand-dark); }
+.pill-accent { background: var(--accent-soft); color: var(--accent); }
+.pill-amber { background: var(--amber-soft); color: var(--amber); }
+.pill-red { background: var(--red-soft); color: var(--red); }
+.pill-green { background: var(--green-soft); color: var(--green); }
+.pill-gray { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+
+/* ---------- Tabs ---------- */
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--border); margin-bottom: 20px; flex-wrap: wrap; }
+.tab {
+  padding: 10px 15px; border: 0; background: transparent; cursor: pointer;
+  font-size: 14.5px; font-weight: 600; color: var(--text-2);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--brand); border-bottom-color: var(--brand); }
+
+/* ---------- Knowledge points ---------- */
+.kp {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 18px 20px; box-shadow: var(--shadow); margin-bottom: 14px;
+}
+.kp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.kp-title { font-size: 16px; font-weight: 700; margin: 0; }
+.imp { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 99px; text-transform: uppercase; letter-spacing: .3px; }
+.imp-high { background: var(--red-soft); color: var(--red); }
+.imp-medium { background: var(--amber-soft); color: var(--amber); }
+.imp-low { background: var(--green-soft); color: var(--green); }
+.kp-body { color: var(--text-2); }
+.kp-mnemonic { margin-top: 10px; background: var(--amber-soft); border-left: 3px solid var(--amber); padding: 10px 13px; border-radius: 8px; font-size: 14px; }
+.kp-mnemonic b { color: var(--amber); }
+.kp-supplement { margin-top: 8px; background: #eff6ff; border-left: 3px solid var(--brand); padding: 9px 12px; border-radius: 8px; font-size: 13.5px; color: var(--text); line-height: 1.5; }
+.kp-supplement b { color: var(--brand-dark); }
+.kp-fig { margin-top: 12px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.kp-fig img { max-width: 100%; display: block; }
+.kp-fig .fig-cap { padding: 9px 13px; font-size: 13px; color: var(--text-2); background: var(--surface-2); }
+
+/* ---------- Math formulas (KaTeX) ---------- */
+/* The AI writes formulas as LaTeX; KaTeX renders them. Sizing is tuned so
+   formulas sit on the same baseline as the surrounding text instead of
+   towering over it, and long display formulas scroll instead of overflowing. */
+.katex { font-size: 1.03em; }
+.katex-display {
+  margin: 10px 0;
+  padding: 2px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+.katex-display > .katex { white-space: normal; }
+/* A formula KaTeX could not parse is echoed in red rather than dropped. */
+.katex .katex-error { color: var(--red); font-size: .92em; }
+/* Point titles / flashcard fronts can carry inline math too. */
+.kp-title .katex, .card-front .katex, .q-option .katex { font-size: 1em; }
+@media (max-width: 700px) {
+  .katex { font-size: .97em; }
+  .katex-display { font-size: .9em; margin: 8px 0; }
+}
+
+/* ---------- Printing ----------
+   A revision site gets printed: formula sheets and knowledge-point lists go on
+   paper. Without these rules the sidebar, nav buttons and search boxes print
+   too, cards split across pages, and every <details> answer stays collapsed.
+   Print expands answers on purpose — a formula sheet with the solutions hidden
+   is not worth carrying. */
+@media print {
+  #sidebar, .sidebar-footer, #toast-wrap, .page-head .btn, .progress-panel,
+  #formula-search, #formula-search-note, #formula-group-toggle,
+  .nav-item, .modal-backdrop { display: none !important; }
+  /* A subject folded away on screen must still print: the point of the sheet is to
+     carry every formula. The fold controls and the "stale format" warnings are
+     screen-only furniture. */
+  .formula-body { display: block !important; }
+  [data-fold], #formula-fold-all, #formula-unfold-all, [data-fold-warn] { display: none !important; }
+  #app { display: block; }
+  #main { margin: 0; padding: 0; }
+  body { background: #fff; color: #000; }
+  .card, .formula-card, .card-body {
+    background: #fff !important; border: 1px solid #bbb !important;
+    box-shadow: none !important; break-inside: avoid; page-break-inside: avoid;
+  }
+  /* Show every collapsed answer: details collapses via the browser default, so
+     the summary must stop acting as a toggle and the content must be shown. */
+  details { display: block !important; }
+  details > summary { display: none !important; }
+  details > *:not(summary) { display: block !important; }
+  /* Chapter headers stay (they are what makes the printed sheet navigable), but
+     the sticky positioning and the disclosure arrow do not. */
+  .formula-chapter { border-left: none; padding-left: 0; break-inside: auto; }
+  .formula-chapter > summary { position: static; display: flex !important; }
+  .formula-chapter > summary::before { content: "" !important; }
+  .katex-display { overflow: visible; }
+  .sub { color: #333 !important; }
+  a[href]::after { content: ""; }
+}
+
+/* ---------- Flashcards ---------- */
+.flashcard-wrap { max-width: 640px; margin: 0 auto; }
+.flashcard {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+  box-shadow: var(--shadow); min-height: 260px; padding: 30px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; cursor: pointer; user-select: none; transition: all .2s;
+}
+.flashcard .card-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-3); margin-bottom: 14px; }
+.flashcard .card-text { font-size: 20px; font-weight: 600; line-height: 1.5; }
+.flashcard .card-text.answer { font-size: 17px; font-weight: 500; color: var(--brand-dark); }
+
+/* ---------- Quiz ---------- */
+.q-option {
+  display: flex; align-items: flex-start; gap: 11px; width: 100%; text-align: left;
+  background: var(--surface); border: 1.5px solid var(--border); border-radius: 11px;
+  padding: 12px 14px; margin-bottom: 9px; cursor: pointer; font-size: 14.5px; transition: all .12s;
+}
+.q-option:hover { border-color: var(--accent); background: var(--accent-soft); }
+.q-option .letter { font-weight: 800; color: var(--text-3); }
+.q-option.correct { border-color: var(--green); background: var(--green-soft); }
+.q-option.wrong { border-color: var(--red); background: var(--red-soft); }
+.q-option.reveal-correct { border-color: var(--green); background: var(--green-soft); }
+.q-expl { margin-top: 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; font-size: 14px; }
+.q-expl.correct { background: var(--green-soft); }
+.q-expl.wrong { background: var(--red-soft); }
+
+/* Star toggle for quiz questions (question bank, preview, quiz attempt). */
+.fav-star {
+  flex: none; width: 32px; height: 32px; padding: 0; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 17px; color: var(--text-3);
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 9px;
+  cursor: pointer; transition: transform .12s, color .12s, background .12s, border-color .12s;
+}
+.fav-star:hover { color: var(--amber); border-color: var(--amber); transform: scale(1.06); }
+.fav-star.on { color: var(--amber); background: var(--amber-soft); border-color: var(--amber); }
+.fav-star:disabled { opacity: .55; cursor: default; }
+
+/* ---------- Review ---------- */
+.review-stage { max-width: 640px; margin: 0 auto; }
+.review-grade { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+.grade-btn { padding: 13px 8px; border-radius: 11px; border: 1.5px solid var(--border); background: var(--surface); font-weight: 700; cursor: pointer; font-size: 13.5px; }
+.grade-0 { color: var(--red); } .grade-0:hover { background: var(--red-soft); border-color: var(--red); }
+.grade-1 { color: var(--amber); } .grade-1:hover { background: var(--amber-soft); border-color: var(--amber); }
+.grade-2 { color: var(--green); } .grade-2:hover { background: var(--green-soft); border-color: var(--green); }
+.grade-3 { color: var(--accent); } .grade-3:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+/* ---------- Mind map ---------- */
+.mindmap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+.mindmap ul { list-style: none; padding-left: 20px; margin: 4px 0; border-left: 1px dashed var(--border); }
+.mindmap > ul { padding-left: 0; border-left: 0; }
+.mindmap li { padding: 4px 0; }
+.mindmap .node-title { font-weight: 700; color: var(--brand-dark); }
+.mindmap .node-body { color: var(--text-2); font-size: 14px; }
+/* ---- mind map v2: root -> branches -> leaf points ---- */
+.mindmap2 { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; }
+.mm-root { display: flex; align-items: center; gap: 10px; padding: 10px 16px; margin-bottom: 14px; background: linear-gradient(90deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: 12px; font-weight: 700; font-size: 16px; box-shadow: 0 4px 14px rgba(0,0,0,.15); }
+.mm-root-ico { font-size: 20px; }
+.mm-root-sub { margin-left: auto; font-size: 12px; font-weight: 500; opacity: .9; }
+.mindmap2 ul { list-style: none; margin: 0; padding-left: 18px; }
+.mindmap2 ul.mm-children { border-left: 2px solid var(--brand); margin-left: 10px; padding-left: 14px; }
+.mindmap2 ul.mm-root-pts { border-left: 0; padding-left: 0; margin-left: 0; }
+.mm-summary { display: flex; align-items: center; gap: 6px; padding: 5px 8px; margin: 3px 0; border-radius: 6px; cursor: pointer; font-weight: 700; }
+.mm-summary:hover { background: var(--surface-2); }
+.mm-arrow { font-size: 11px; transition: transform .12s; color: var(--text-3); }
+details.mm-details[open] .mm-arrow { transform: rotate(90deg); }
+.mm-count { font-size: 11px; color: var(--text-3); background: var(--surface-2); padding: 1px 7px; border-radius: 99px; }
+.mm-l1 > .mm-summary { color: var(--brand-dark); font-size: 15px; }
+.mm-l2 > .mm-summary { color: var(--text); font-size: 14px; }
+.mm-l3 > .mm-summary { color: var(--text-2); font-size: 13px; }
+.mm-point { display: flex; align-items: center; gap: 8px; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+.mm-point:hover { background: var(--surface-2); }
+.mm-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.mm-dot.high { background: var(--red); }
+.mm-dot.medium { background: var(--amber); }
+.mm-dot.low { background: var(--text-3); }
+.mm-point-title { font-weight: 600; color: var(--text); }
+.mm-imp { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 99px; }
+.mm-imp.high { background: var(--red); color: #fff; }
+.mm-imp.medium { background: var(--amber); color: #fff; }
+.mm-imp.low { background: var(--text-3); color: #fff; }
+
+/* ---------- Upload dropzone ---------- */
+.dropzone {
+  border: 2px dashed #cbd5e1; border-radius: 16px; padding: 52px 24px;
+  text-align: center; cursor: pointer; background: var(--surface); transition: all .15s;
+}
+.dropzone:hover, .dropzone.drag { border-color: var(--brand); background: var(--brand-soft); }
+.dropzone .dz-ico { font-size: 40px; }
+.dropzone input { display: none; }
+
+/* ---------- Slides preview ---------- */
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; }
+.slide-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.slide-num { font-weight: 700; color: var(--brand); }
+.slide-text { white-space: pre-wrap; color: var(--text-2); font-size: 13.5px; max-height: 160px; overflow: auto; }
+.slide-images { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.slide-images img { max-height: 120px; border-radius: 8px; border: 1px solid var(--border); }
+.slide-notes { margin-top: 8px; font-size: 13px; color: var(--amber); background: var(--amber-soft); padding: 8px 11px; border-radius: 8px; white-space: pre-wrap; }
+
+/* ---------- Progress ---------- */
+.progress-bar { height: 10px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--brand); border-radius: 99px; transition: width .3s; }
+.step-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.step-row:last-child { border-bottom: 0; }
+.step-ico { width: 22px; text-align: center; }
+
+/* ---------- Mistake ---------- */
+.mistake-item { border-left: 4px solid var(--red); }
+
+/* ---------- Settings ---------- */
+.field { margin-bottom: 18px; }
+.field label { display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 6px; color: var(--text-2); }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px;
+  font-size: 14px; font-family: inherit; background: var(--surface); color: var(--text);
+}
+.field input:focus, .field select:focus { outline: none; border-color: var(--brand); }
+.field .hint { font-size: 12px; color: var(--text-3); margin-top: 5px; }
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(15,23,42,.5); display: flex;
+  align-items: center; justify-content: center; z-index: 100; padding: 20px;
+}
+.modal {
+  background: var(--surface); border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  width: 100%; max-width: 720px; max-height: 90vh; overflow: auto; padding: 28px;
+}
+.modal h2 { margin-bottom: 16px; }
+
+/* ---------- Toast ---------- */
+#toast-wrap { position: fixed; bottom: 22px; right: 22px; display: flex; flex-direction: column; gap: 10px; z-index: 200; }
+.toast {
+  background: #0f172a; color: #fff; padding: 13px 18px; border-radius: 11px;
+  box-shadow: var(--shadow); font-size: 14px; max-width: 360px; animation: slideIn .2s ease;
+}
+.toast.error { background: var(--red); }
+.toast.success { background: var(--green); }
+@keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.empty {
+  text-align: center; padding: 60px 20px; color: var(--text-3);
+}
+.empty .empty-ico { font-size: 46px; margin-bottom: 12px; }
+.loading { text-align: center; padding: 30px; color: var(--text-3); }
+.spinner {
+  width: 26px; height: 26px; border: 3px solid var(--border); border-top-color: var(--brand);
+  border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Progress / time stats ---------- */
+.chart { display: flex; gap: 10px; align-items: flex-end; height: 170px; padding-top: 8px; }
+.chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+.chart-bar { width: 72%; max-width: 46px; background: linear-gradient(180deg, var(--brand), var(--brand-dark)); border-radius: 6px 6px 2px 2px; min-height: 3px; transition: height .3s; }
+.chart-label { font-size: 11px; color: var(--text-3); margin-top: 6px; }
+.chart-label.chart-today { color: var(--brand); font-weight: 700; }
+.chart-val { font-size: 10px; color: var(--text-3); min-height: 13px; }
+.break-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.break-label { width: 130px; font-size: 13.5px; color: var(--text-2); }
+.lp-row { padding: 13px 2px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.lp-row:last-child { border-bottom: 0; }
+.lp-row:hover .lp-title { color: var(--brand); }
+.lp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+.lp-title { font-weight: 600; }
+.lp-pct { font-weight: 800; color: var(--brand-dark); }
+.lp-meta { font-size: 12.5px; }
+.stat-click { cursor: pointer; transition: all .15s; }
+.stat-click:hover { border-color: var(--brand); transform: translateY(-1px); }
+
+/* ---------- Search ---------- */
+.search-select { padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 9px; font-size: 14px; background: var(--surface); color: var(--text); font-family: inherit; }
+.search-select:focus { outline: none; border-color: var(--brand); }
+.search-row { display: flex; align-items: center; gap: 12px; padding: 11px 4px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.search-row:last-child { border-bottom: 0; }
+.search-row:hover { background: var(--surface-2); }
+.search-ico { font-size: 18px; width: 24px; text-align: center; }
+
+/* ---------- Key-point highlight & figures ---------- */
+mark.hl { background: #fde68a; color: #1f2937; font-weight: 700; padding: 0 2px; border-radius: 3px; }
+mark.hl.cloze-revealed { background: #bbf7d0; border-bottom: 2px solid var(--green); }
+mark.hl.cloze-wrong { background: #fecaca; border-bottom: 2px solid var(--red); }
+/* These three rules have identical specificity, so source order decides which one
+   paints a mark that carries more than one state class. Hidden must come last: a
+   blanked-out term is never "revealed", and with this rule first a leftover
+   cloze-revealed (or cloze-wrong) from a previous run made every blank look green
+   or red instead of grey. */
+mark.hl.cloze-hidden { background: #e2e8f0; color: #64748b; border-bottom: 2px solid var(--brand); cursor: pointer; }
+.kp-section.recalling .kp-subtitle { text-decoration: underline; text-underline-offset: 3px; }
+.recall-tip { font-size: 13px; color: var(--text-2); background: var(--surface-2); padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; }
+.recall-rate .btn { padding: 4px 10px; font-size: 13px; }
+.recall-btn[data-state="active"] { color: var(--red); }
+.kp-figs { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.kp-fig { margin: 0; max-width: 680px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface-2); }
+.kp-fig img { width: 100%; max-height: 520px; object-fit: contain; display: block; cursor: zoom-in; background: #fff; }
+.kp-fig-wrap { position: relative; }
+.kp-crop-badge { position: absolute; top: 8px; left: 8px; background: rgba(37,99,235,.85); color: #fff; font-size: 10.5px; padding: 2px 8px; border-radius: 99px; }
+.kp-crop-btn { padding: 1px 6px; font-size: 11px; margin-left: 6px; }
+/* crop picker overlay */
+.crop-mask { position: absolute; border: 2px solid var(--brand); background: rgba(37,99,235,.12); cursor: move; box-shadow: 0 0 0 9999px rgba(0,0,0,.35); }
+.crop-mask .crop-handle { position: absolute; width: 14px; height: 14px; background: #fff; border: 2px solid var(--brand); border-radius: 3px; }
+.crop-mask .crop-handle.se { right: -7px; bottom: -7px; cursor: nwse-resize; }
+.crop-mask .crop-handle.nw { left: -7px; top: -7px; cursor: nwse-resize; }
+.kp-fig figcaption { padding: 7px 11px; font-size: 12px; color: var(--text-2); line-height: 1.4; }
+.kp-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.chip { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 99px; background: var(--surface); color: var(--text-2); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all .12s; }
+.chip:hover { border-color: var(--brand); color: var(--brand); }
+.chip.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+.kp-group { margin-bottom: 20px; }
+.kp-group-title { font-size: 16px; font-weight: 800; margin: 0 0 8px; color: var(--text); }
+.kp-section { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.kp-section:last-child { border-bottom: 0; padding-bottom: 2px; }
+.kp-section:first-child { padding-top: 8px; }
+.kp-subhead { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.kp-subtitle { font-size: 15px; font-weight: 700; color: var(--text); }
+.tree-l1 { font-size: 17px; font-weight: 800; margin: 22px 0 10px; color: var(--text); }
+.tree-l2 { font-size: 15px; font-weight: 700; margin: 16px 0 6px; color: var(--brand-dark); padding-left: 12px; border-left: 3px solid var(--brand); }
+.tree-l3 { font-size: 13px; font-weight: 600; margin: 12px 0 4px; color: var(--text-2); padding-left: 12px; }
+/* Collapsible key-point groups (default hidden) */
+details.kp-group { margin: 4px 0; }
+details.kp-group summary.kp-summary { cursor: pointer; list-style: none; user-select: none; }
+details.kp-group summary.kp-summary::-webkit-details-marker { display: none; }
+details.kp-group[open] > summary .kp-arrow { transform: rotate(90deg); }
+.kp-arrow { display: inline-block; transition: transform .15s; color: var(--text-3); font-size: 13px; width: 14px; }
+details.kp-group > summary.tree-l1 { margin: 16px 0 8px; padding: 6px 10px; border-radius: 8px; }
+details.kp-group > summary.tree-l1:hover { background: var(--surface-2); }
+details.kp-group > summary.tree-l2 { margin: 8px 0 4px; padding: 4px 8px; border-radius: 6px; }
+details.kp-group > summary.tree-l2:hover { background: var(--surface-2); }
+details.kp-group > summary.tree-l3 { margin: 6px 0 3px; padding: 3px 8px; border-radius: 6px; }
+details.kp-group > summary.tree-l3:hover { background: var(--surface-2); }
+details.kp-group > .tree-l2, details.kp-group > .tree-l3, details.kp-group > .card { margin-left: 10px; }
+.r-q { font-size: 15px; color: var(--text-2); font-weight: 500; margin-bottom: 12px; text-align: left; }
+.r-divider { border-top: 1px dashed var(--border); margin: 12px 0; }
+.r-a { font-size: 17px; color: var(--brand-dark); font-weight: 600; text-align: left; }
+/* Knowledge navigator */
+.nav-l1 { font-size: 14px; font-weight: 800; margin: 12px 0 4px; color: var(--text); }
+.nav-l2 { font-size: 13px; font-weight: 700; margin: 8px 0 2px; color: var(--brand-dark); }
+.nav-l3 { font-size: 12px; font-weight: 600; margin: 6px 0 2px; color: var(--text-2); }
+.nav-children { margin-left: 12px; }
+.nav-points { margin-left: 12px; }
+.nav-point { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 6px; cursor: pointer; }
+.nav-point:hover { background: var(--surface-2); }
+.nav-point-title { font-size: 13px; }
+.nav-arrow { color: var(--text-3); font-size: 13px; width: 14px; }
+.kp-flash { animation: kpFlash 2s ease; border-radius: 8px; }
+@keyframes kpFlash { 0% { background: var(--brand-soft); } 100% { background: transparent; } }
+.kp-fig-toggle { margin-top: 10px; }
+.grade-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; line-height: 1.3; }
+.g-int { font-weight: 400; font-size: 11.5px; opacity: .85; }
+.g-key { font-size: 10px; font-weight: 700; opacity: .5; border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; }
+
+/* Immersive reading mode for Key Points */
+body.immersive #sidebar { display: none !important; }
+body.immersive #main { margin-left: 0 !important; display: flex; justify-content: center; }
+body.immersive #view { width: 100%; max-width: 900px; padding: 26px 24px 60px; }
+body.immersive .page-head { margin-bottom: 10px; }
+body.immersive .page-head .title-wrap h1 { font-size: 26px; }
+body.immersive .kp-group > summary.tree-l1 { font-size: 22px; }
+
+/* ---------------- Interactive desk pet ----------------
+ *
+ * One element, one position, always clickable.
+ *
+ * This used to be a hover-reveal: the pet stayed transparent until the pointer
+ * came within 190px of the corner, and a separate pill in the same corner showed
+ * the timer when it was hidden. That produced two floating things fighting over
+ * the same pixels — the pet could reappear on top of the pill, the pill faded out
+ * while the pet covered it, and the collapse flag could be set while the pet was
+ * still shown, leaving it 0×0 and impossible to grab. Wandering away from the
+ * corner was the only way to change any of it.
+ *
+ * Now the pet is simply present (or simply hidden), and its timer travels WITH
+ * it, so wherever it is dragged, the thing you want to click is right there and
+ * nothing else is stacked on it.
+ */
+#pet {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 96px;
+  z-index: 60;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  opacity: 1;
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: auto;
+  /* A small opaque hit area is what makes it draggable; the transparent corners
+     of the PNG let clicks through because only the <img> is a pointer target. */
+}
+/* Collapsed: hidden, but only while the flag and the artwork agree (see the
+   .show rule below — the two can never disagree). */
+body.pet-hidden #pet { display: none; }
+#pet img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.22));
+  transition: transform .18s ease;
+  /* Only the artwork is a pointer target, so the transparent corners of the box
+     do not eat clicks meant for the page. */
+  pointer-events: auto;
+  cursor: grab;
+}
+#pet:hover img { transform: scale(1.05); }
+#pet.dragging { cursor: grabbing; }
+#pet.dragging img { transform: scale(1.08); }
+#pet.pop img { animation: pet-pop .4s ease; }
+@keyframes pet-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.15) rotate(-6deg); }
+  70% { transform: scale(.96) rotate(4deg); }
+  100% { transform: scale(1); }
+}
+#pet-bubble {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: max-content;
+  max-width: 220px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 11px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--text);
+  box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  margin-bottom: 6px;
+}
+#pet-bubble:after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  right: 22px;
+  width: 12px; height: 12px;
+  background: #fff;
+  border-right: 1.5px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
+  transform: rotate(45deg);
+}
+
+#pet-timer {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  z-index: 2;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 9px;
+  font-size: 12px;
+  color: var(--text);
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  text-align: right;
+  line-height: 1.5;
+}
+#pet-today { font-weight: 600; color: var(--text-2); white-space: nowrap; }
+#pet-pomo-btn { margin-top: 4px; padding: 2px 8px; font-size: 11.5px; }
+#pet-pomo-btn.running { color: var(--red); border-color: var(--red); }
+#pet-pomo-mini {
+  position: fixed;
+  /* Sits clear of the pet box above it (the pet is 96×~92 anchored 16px from the
+     corner), so the two never occupy the same pixels and the pill stays clickable
+     whichever one is showing. */
+  bottom: 14px;
+  right: 12px;
+  z-index: 61;
+  background: var(--surface);
+  border: 1.5px solid var(--brand);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--brand);
+  box-shadow: 0 4px 14px rgba(0,0,0,.18);
+  cursor: pointer;
+  /* A small floating pill: keep its own click, let everything around it through. */
+  pointer-events: auto;
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+/* The standalone pill exists ONLY for the collapsed state. While the pet is up it
+   is gone entirely (not merely transparent), so it can never sit under the pet,
+   steal a drag, or be clicked by accident. */
+#pet.show ~ #pet-pomo-mini { display: none; }
+body.pet-hidden #pet-pomo-mini { display: block; opacity: 1; pointer-events: auto; }
+
+/* The collapse/expand control sits OUTSIDE #pet (see index.html) so collapsing the
+   pet can never hide the way to bring it back. It is pinned to the corner where the
+   timer lives, and it is the ONLY extra floating control — one small button. */
+#pet-hide {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  z-index: 62;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  /* Below-left of the pet's tile, clear of the artwork, the timer block above it,
+     and the corner pill below it — the corner is crowded, so this button gets its
+     own pocket of space instead of being stacked on something. */
+  right: 124px;
+  bottom: 20px;
+}
+/* Visible in BOTH states (that is the point), except on phones where the corner is
+   reserved for the bottom nav. */
+#pet-hide { display: flex; }
+#pet-hide:hover { color: var(--red); border-color: var(--red); }
+
+/* Bring the pet back from Settings. */
+#pet-show { display: none; }
+body.pet-hidden #pet-show { display: inline-flex; }
+
+/* ================= Mobile / responsive ================= */
+@media (max-width: 768px) {
+  #sidebar {
+    position: fixed; top: auto; bottom: 0; left: 0; right: 0;
+    width: 100%; height: auto; flex-direction: row; align-items: stretch;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    background: #0b1220; z-index: 120; box-shadow: 0 -2px 12px rgba(0,0,0,.25);
+  }
+  .brand { display: none; }
+  #nav { flex-direction: row; gap: 2px; width: 100%; justify-content: space-around; }
+  .nav-item {
+    flex-direction: column; gap: 3px; padding: 7px 3px; font-size: 10px;
+    text-align: center; align-items: center; min-width: 0;
+  }
+  .nav-item .nav-ico { font-size: 19px; width: auto; }
+  .nav-item span:last-child:not(.badge) { display: none; } /* hide text labels, keep icons */
+  .nav-item .badge { position: absolute; top: 2px; right: 8px; font-size: 9px; padding: 1px 5px; }
+  #sidebar .sidebar-footer { display: none; }
+  #main { margin-left: 0; padding-bottom: 76px; }
+  .view { padding: 16px 14px 30px; }
+  .page-head { flex-direction: column; align-items: stretch; gap: 10px; }
+  .page-head .title-wrap h1 { font-size: 21px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .modal { max-width: 96vw; padding: 20px; margin: 0 auto; }
+  .flashcard { min-height: 230px; padding: 24px 18px; }
+  .flashcard .card-text { font-size: 18px; }
+  .review-grade { grid-template-columns: repeat(2, 1fr); }
+  .tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .tab { white-space: nowrap; flex: none; }
+  .lesson-item { flex-wrap: wrap; }
+  .lesson-meta { width: 100%; margin-left: 0; }
+  .kp-filters, .kp-head { flex-wrap: wrap; }
+  .q-option { font-size: 14px; }
+  /* The mode notice ("免密模式" / "试用版") is a sidebar column on desktop. Left in
+     the bottom row it was squeezed into a 73px-wide text column 166px tall, which
+     stretched the whole bar to 190px — and because the nav items stretch with it,
+     every icon became a 30x178 strip. That is a fifth of a phone screen for one row
+     of icons, and a 30px-wide tap target. Pin it as a strip above the bar instead. */
+  #sidebar .trial-banner {
+    position: fixed; left: 8px; right: 8px; bottom: 76px; margin: 0; z-index: 119;
+  }
+  /* Centre instead of stretch, so the bar is only as tall as its icons. */
+  #sidebar { align-items: center; }
+  #nav { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  #nav::-webkit-scrollbar { display: none; }
+  /* Keep a real tap target: 30px wide was under every touch guideline. The row
+     scrolls sideways when 12 items do not fit — the standard phone pattern. */
+  .nav-item { min-width: 42px; justify-content: center; }
+  /* Clear of the bar (76px) and of the notice strip sitting above it. */
+  #feature-launcher { left: auto !important; right: 10px !important; bottom: 134px !important; padding: 9px 14px !important; }
+}
+@media (max-width: 480px) {
+  .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .stat .stat-num { font-size: 24px; }
+  .view { padding: 14px 12px 28px; }
+  .btn-lg { padding: 11px 16px; font-size: 14px; }
+}
+@media (max-width: 768px) {
+  #pet { display: none !important; }        /* hide desktop pet on phones */
+  #pet-pomo-mini { bottom: 84px !important; left: 12px !important; }
+}
+/* ---------- Formula library: chapter sections ----------
+   A subject's formulas are grouped under the chapter they came from, so the
+   library reads like the course instead of one flat list. The section header
+   sticks while its formulas scroll past, which is what makes a long chapter
+   navigable. */
+.formula-chapter {
+  margin: 14px 0 2px;
+  border-left: 3px solid var(--border);
+  padding-left: 12px;
+}
+.formula-chapter > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 2px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg, #f8fafc);
+  border-bottom: 1px dashed var(--border);
+}
+.formula-chapter > summary::-webkit-details-marker { display: none; }
+.formula-chapter > summary::before {
+  content: "▾";
+  font-size: 11px;
+  color: var(--muted, #64748b);
+  transition: transform .15s ease;
+}
+.formula-chapter:not([open]) > summary::before { content: "▸"; }
+.formula-chapter-name {
+  font-weight: 650;
+  font-size: 13.5px;
+  letter-spacing: .2px;
+}
+.formula-chapter-count {
+  font-size: 11.5px;
+  color: var(--muted, #64748b);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 8px;
+  background: var(--surface);
+  margin-left: auto;
+}
+.formula-chapter-body { padding-top: 2px; }
+
+/* ---------- Flashcards ---------- */
